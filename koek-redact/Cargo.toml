@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2021"
 description = "Allows for redaction of values when outputting them to places where sensitive data is not permitted."
 license = "MIT"
+repository = "https://github.com/sandersaares/koek-rust.git"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
