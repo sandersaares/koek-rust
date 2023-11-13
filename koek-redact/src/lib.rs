@@ -10,19 +10,20 @@ use std::{
     net::{IpAddr, Ipv4Addr},
 };
 
-pub trait Redactable {
+pub trait Redact {
+    // TODO: For the typical case we could avoid the string allocation if we returned &str or a more flexible type.
     fn redacted(&self) -> String;
 }
 
 // Anything that implements Display is extended to be redactable.
-impl<T: Display> Redactable for T {
+impl<T: Display> Redact for T {
     default fn redacted(&self) -> String {
         String::from(DEFAULT_REDACTED_VALUE)
     }
 }
 
 // IP addresses have their own special default rules.
-impl Redactable for IpAddr {
+impl Redact for IpAddr {
     fn redacted(&self) -> String {
         match self {
             IpAddr::V4(x) => x.redacted(),
@@ -31,7 +32,7 @@ impl Redactable for IpAddr {
     }
 }
 
-impl Redactable for Ipv4Addr {
+impl Redact for Ipv4Addr {
     fn redacted(&self) -> String {
         // IPv4 addresses are redacted by removing the last octet.
         // 1.2.3.4 -> 1.2.3.xxx
@@ -115,7 +116,7 @@ mod tests {
     #[test]
     fn can_redact_custom_struct_via_display() {
         let value = CustomSecretStructViaDisplay {
-            tell_noone: String::from("the secret value"),
+            tell_noone: "the secret value".to_owned(),
         };
         let redacted = value.redacted();
 
@@ -134,7 +135,7 @@ mod tests {
         }
     }
 
-    impl Redactable for CustomSecretStructViaCustomLogic {
+    impl Redact for CustomSecretStructViaCustomLogic {
         fn redacted(&self) -> String {
             format!("{}. {}.", &self.first_name[0..1], &self.last_name[0..1])
         }
@@ -143,8 +144,8 @@ mod tests {
     #[test]
     fn can_redact_custom_struct_via_custom_logic() {
         let value = CustomSecretStructViaCustomLogic {
-            first_name: String::from("Firstname"),
-            last_name: String::from("Lastname"),
+            first_name: "Firstname".to_owned(),
+            last_name: "Lastname".to_owned(),
         };
         let redacted = value.redacted();
 

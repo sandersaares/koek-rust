@@ -1,0 +1,11 @@
+[package]
+name = "koek-classify"
+version = "0.1.0"
+edition = "2021"
+description = "Allows for classification of values and class-specific treatment (including redaction on display)."
+license = "MIT"
+repository = "https://github.com/sandersaares/koek-rust.git"
+exclude = [".vscode"]
+
+[dependencies]
+koek-redact = { path = "../koek-redact", version = "0.2.0" }

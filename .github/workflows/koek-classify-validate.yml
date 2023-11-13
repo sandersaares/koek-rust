@@ -1,12 +1,12 @@
-name: koek-redact validate
+name: koek-classify validate
 
 on:
   push:
     paths:
-    - koek-redact/**
+    - koek-classify/**
   pull_request:
     paths:
-    - koek-redact/**
+    - koek-classify/**
   workflow_dispatch:
 
 env: 
@@ -14,7 +14,7 @@ env:
 
 defaults:
   run:
-    working-directory: koek-redact
+    working-directory: koek-classify
 
 jobs:
   build_and_test:

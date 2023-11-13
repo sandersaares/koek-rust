@@ -1,6 +1,6 @@
 [package]
 name = "koek-redact"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 description = "Allows for redaction of values when outputting them to places where sensitive data is not permitted."
 license = "MIT"
