@@ -11,6 +11,10 @@ on:
 env: 
   CARGO_TERM_COLOR: always
 
+defaults:
+  run:
+    working-directory: /koek-redact
+
 jobs:
   build_and_test:
     name: Build and test
